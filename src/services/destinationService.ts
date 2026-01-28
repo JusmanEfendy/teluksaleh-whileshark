@@ -9,14 +9,26 @@ export const destinationService = {
         const { data, error } = await supabase
             .from(TABLE_NAME)
             .select('*')
-            .order('id', { ascending: true })
+            .order('created_at', { ascending: false })
 
         if (error) throw error
         return data || []
     },
 
-    // Get single destination by ID
-    async getById(id: number): Promise<Destination | null> {
+    // Get destinations by category
+    async getByCategory(category: Destination['category']): Promise<Destination[]> {
+        const { data, error } = await supabase
+            .from(TABLE_NAME)
+            .select('*')
+            .eq('category', category)
+            .order('created_at', { ascending: false })
+
+        if (error) throw error
+        return data || []
+    },
+
+    // Get single destination by ID (uuid)
+    async getById(id: string): Promise<Destination | null> {
         const { data, error } = await supabase
             .from(TABLE_NAME)
             .select('*')
@@ -40,7 +52,7 @@ export const destinationService = {
     },
 
     // Update destination
-    async update(id: number, updates: DestinationUpdate): Promise<Destination> {
+    async update(id: string, updates: DestinationUpdate): Promise<Destination> {
         const { data, error } = await supabase
             .from(TABLE_NAME)
             .update(updates)
@@ -53,7 +65,7 @@ export const destinationService = {
     },
 
     // Delete destination
-    async delete(id: number): Promise<void> {
+    async delete(id: string): Promise<void> {
         const { error } = await supabase
             .from(TABLE_NAME)
             .delete()

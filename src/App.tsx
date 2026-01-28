@@ -1,18 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// pages
+import Login from "./pages/admin/Login";
+import Dashboard from "./pages/admin/Dashboard";
+import LandingPage from "./pages/LandingPage";
+
+// routes / guards
+import AdminRoute from "./routes/AdminRoute";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div className="bg-red-500 text-white p-4 rounded-lg">
-        Hello Tailwind!
-      </div>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        {/* ===== PUBLIC ROUTE ===== */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/admin/login" element={<Login />} />
+
+        {/* ===== PROTECTED ADMIN ROUTE ===== */}
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <Dashboard />
+            </AdminRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
