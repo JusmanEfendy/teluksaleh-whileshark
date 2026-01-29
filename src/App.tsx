@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // pages
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
+import Destinations from "./pages/admin/Destinations";
 import LandingPage from "./pages/LandingPage";
 
 // routes / guards
@@ -25,9 +26,18 @@ function App() {
             </AdminRoute>
           }
         />
+        <Route
+          path="/admin/destinations"
+          element={
+            <AdminRoute>
+              <Destinations />
+            </AdminRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
+

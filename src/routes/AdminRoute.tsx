@@ -11,6 +11,14 @@ export default function AdminRoute({ children }: { children: React.ReactNode }) 
     }, [])
 
     const checkAdmin = async () => {
+        // Check for Demo Mode
+        const isDemo = localStorage.getItem('demo_mode') === 'true'
+        if (isDemo) {
+            setIsAdmin(true)
+            setLoading(false)
+            return
+        }
+
         try {
             const { data: { user } } = await supabase.auth.getUser()
 
@@ -38,8 +46,8 @@ export default function AdminRoute({ children }: { children: React.ReactNode }) 
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-                <div className="text-white text-xl">⏳ Loading...</div>
+            <div className="min-h-screen bg-white flex items-center justify-center">
+                <div className="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
         )
     }

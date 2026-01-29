@@ -32,7 +32,7 @@ export default function Navbar({
     text-xl font-bold tracking-tight transition-colors
     ${scrolled
             ? darkMode ? 'text-white' : 'text-slate-900'
-            : 'text-white'}
+            : darkMode ? 'text-white' : 'text-slate-900'}
   `;
 
     const linkClass = `
@@ -41,7 +41,9 @@ export default function Navbar({
             ? darkMode
                 ? 'text-slate-200 hover:text-white'
                 : 'text-slate-700 hover:text-slate-900'
-            : 'text-white hover:text-white'}
+            : darkMode
+                ? 'text-slate-200 hover:text-white'
+                : 'text-slate-700 hover:text-indigo-600'}
   `;
 
     // ✅ DARK MODE CLEAN (TIDAK DOMINAN)
@@ -63,10 +65,8 @@ export default function Navbar({
   `;
 
     const loginButtonClass = `
-    px-5 py-2 text-sm font-semibold rounded-full transition-colors
-    ${darkMode
-            ? 'text-white hover:bg-white/10'
-            : 'text-slate-900 hover:bg-black/5'}
+    px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 shadow-md shadow-cyan-500/20
+    bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:shadow-lg hover:shadow-cyan-500/40 hover:-translate-y-0.5
   `;
 
     /* ================== JSX ================== */
@@ -132,7 +132,8 @@ export default function Navbar({
 
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="p-2 rounded-lg text-white hover:bg-black/10"
+                            className={`p-2 rounded-lg transition-colors ${darkMode ? 'text-white hover:bg-slate-800' : 'text-slate-900 hover:bg-black/5'
+                                }`}
                             aria-label="Toggle menu"
                         >
                             {mobileMenuOpen ? '✕' : '☰'}
